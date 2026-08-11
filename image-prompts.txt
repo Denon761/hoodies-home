@@ -1,0 +1,115 @@
+HOODIESHOME - IMAGE GENERATION PROMPT LIST
+============================================
+Generate these with any free image tool (Gemini/AI Studio, Cloudflare Workers AI,
+Pollinations.ai, local Stable Diffusion, etc.) and send them back to be added to
+the project.
+
+PRIORITY 1 - BRAND ESSENTIALS
+------------------------------
+
+1. Logo
+   File: public/images/logo.png (transparent PNG, ~512x512 or wide lockup)
+   Prompt: Minimalist modern logo for a streetwear brand called "HoodiesHome".
+   Bold clean sans-serif wordmark, "Hoodies" in black and "Home" in a vivid
+   accent orange/red, small hoodie-hood icon integrated into the "H". Flat
+   vector style, transparent background, no gradients.
+
+2. Favicon
+   File: src/app/favicon.ico (512x512 source, will be converted)
+   Prompt: Simple flat icon of a hoodie hood/drawstring silhouette in a
+   rounded square, single bold accent color on white/transparent background,
+   minimalist app-icon style, no text.
+
+3. OG / social share image
+   File: public/images/og-image.jpg (1200x630)
+   Prompt: Wide banner image, model wearing a premium black streetwear
+   hoodie against a clean studio background, bold text space on the left,
+   moody dramatic lighting, professional e-commerce photography, 1200x630
+   aspect ratio.
+
+PRIORITY 2 - HOMEPAGE HERO
+----------------------------
+
+4. Hero image
+   File: public/images/hero-hoodie.jpg (~1200x1200 or 1600x1200)
+   Prompt: Professional studio product photo of a person wearing an
+   oversized black pullover hoodie, three-quarter angle, soft dramatic
+   studio lighting, neutral gray background, streetwear e-commerce style,
+   high detail on fabric texture, no visible logos.
+
+PRIORITY 3 - HOODIE STYLE THUMBNAILS (7 images, square ~800x800)
+-------------------------------------------------------------------
+Shared base prompt (swap the bracketed part):
+Studio product photo, [VARIANT], plain neutral light-gray background, soft
+even studio lighting, front-facing flat-lay or ghost-mannequin style, no
+visible branding, consistent e-commerce catalog look.
+
+5. Pullover
+   File: public/images/styles/pullover.jpg
+   [VARIANT] = a classic black pullover hoodie with kangaroo pocket, relaxed fit
+
+6. Zip
+   File: public/images/styles/zip.jpg
+   [VARIANT] = a black full-zip hoodie with visible metal zipper, layer-friendly fit
+
+7. Oversized
+   File: public/images/styles/oversized.jpg
+   [VARIANT] = an oversized streetwear hoodie with dropped shoulders, roomy silhouette
+
+8. Heavyweight
+   File: public/images/styles/heavyweight.jpg
+   [VARIANT] = a thick heavyweight 450gsm hoodie, dense fleece texture, winter-ready
+
+9. Streetwear
+   File: public/images/styles/streetwear.jpg
+   [VARIANT] = a tailored streetwear hoodie in premium fabric, sharp modern cut
+
+10. Cropped
+    File: public/images/styles/cropped.jpg
+    [VARIANT] = a cropped-length hoodie, trend-forward short fit
+
+11. Sleeveless
+    File: public/images/styles/sleeveless.jpg
+    [VARIANT] = a sleeveless training hoodie, athletic cut, performance fabric
+
+PRIORITY 4 - FABRIC SWATCH TEXTURES (6 images, square ~600x600)
+--------------------------------------------------------------------
+Shared base prompt (swap the bracketed part):
+Extreme close-up macro photo of [FABRIC] fabric texture, flat lay, soft
+studio lighting, filling the entire frame, no seams or logos visible.
+
+12. Heavyweight Cotton Fleece
+    File: public/images/fabrics/heavyweight-cotton-fleece.jpg
+    [FABRIC] = thick heavyweight cotton fleece, brushed inner loop texture
+
+13. Premium Cotton
+    File: public/images/fabrics/premium-cotton.jpg
+    [FABRIC] = premium combed cotton, smooth fine-knit
+
+14. French Terry
+    File: public/images/fabrics/french-terry.jpg
+    [FABRIC] = french terry knit, looped textured surface
+
+15. Cotton Fleece
+    File: public/images/fabrics/cotton-fleece.jpg
+    [FABRIC] = standard cotton fleece, medium-weight knit
+
+16. Performance Blend
+    File: public/images/fabrics/performance-blend.jpg
+    [FABRIC] = performance poly-cotton blend, subtle sheen, athletic knit
+
+17. Organic Cotton
+    File: public/images/fabrics/organic-cotton.jpg
+    [FABRIC] = organic cotton jersey, natural matte fiber texture
+
+PRIORITY 5 - OPTIONAL / NICE-TO-HAVE
+---------------------------------------
+- Trust badges: current lucide icons work fine, skip unless desired.
+- Accessory close-ups (woven label, hang tag, leather patch): only needed
+  if replacing the icon-based accessory cards later.
+
+NOTES
+-----
+Send images back whenever ready, even partial batches are fine - they will
+be integrated as they arrive (adding "image" fields to the data files and
+swapping the SVG/CSS placeholders for real <Image> components).
