@@ -1,7 +1,7 @@
 export const product = {
   id: "classic-hoodie",
   name: "The Classic Hoodie",
-  price: 89,
+  price: 1,
   description:
     "A heavyweight, garment-dyed hoodie made from 100% cotton fleece. Relaxed fit, dropped shoulders, and a brushed interior for everyday comfort.",
   highlights: [

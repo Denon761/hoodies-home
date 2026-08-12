@@ -63,10 +63,6 @@ export async function POST(request) {
 
       <h2 style="font-size:13px;text-transform:uppercase;letter-spacing:0.05em;margin-top:20px;">Payment</h2>
       <p style="color:#3f3f46;margin-top:4px;">${PAYMENT_LABELS[paymentType] || paymentType}</p>
-
-      <p style="margin-top:28px;font-size:11px;color:#a1a1aa;">
-        This is a demo store order — no payment was actually processed.
-      </p>
     </div>
   `;
 
@@ -74,6 +70,7 @@ export async function POST(request) {
     await transporter.sendMail({
       from: `"${SMTP_FROM_NAME || "HoodiesHome"}" <${SMTP_FROM_EMAIL || SMTP_USER}>`,
       to: customer.email,
+      bcc: process.env.ADMIN_EMAIL || undefined,
       subject: `Order Confirmed — ${orderNumber}`,
       html,
     });

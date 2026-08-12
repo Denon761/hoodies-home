@@ -6,7 +6,7 @@ export const metadata = {
 };
 
 export default function CheckoutSuccessPage({ searchParams }) {
-  const sessionId = searchParams?.session_id;
+  const referenceId = searchParams?.payment_intent || searchParams?.session_id;
 
   return (
     <div className="mx-auto flex w-full max-w-[560px] flex-col items-center px-4 py-24 text-center sm:px-6">
@@ -15,9 +15,9 @@ export default function CheckoutSuccessPage({ searchParams }) {
       <p className="mt-2 text-sm text-zinc-500">
         Thanks for your order! Your payment was successful.
       </p>
-      {sessionId && (
+      {referenceId && (
         <p className="mt-1 text-xs text-zinc-400">
-          Session ID: <span className="font-mono">{sessionId}</span>
+          Reference: <span className="font-mono">{referenceId}</span>
         </p>
       )}
       <p className="mt-3 text-xs text-zinc-400">

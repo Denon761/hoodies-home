@@ -24,6 +24,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${montserrat.variable} ${archivoBlack.variable} h-full antialiased`}>
+      <head>
+        <link rel="preconnect" href="https://js.stripe.com" />
+        <link rel="preconnect" href="https://api.stripe.com" />
+      </head>
       <body className="min-h-full flex flex-col">
         <Providers>
           <SiteChrome>{children}</SiteChrome>

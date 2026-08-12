@@ -2,12 +2,6 @@ import Stripe from "stripe";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
-const PAYMENT_LABELS = {
-  card: "Credit / Debit Card",
-  paypal: "PayPal",
-  cod: "Cash on Delivery",
-};
-
 export async function POST(request) {
   if (!process.env.STRIPE_SECRET_KEY) {
     return NextResponse.json({ error: "Stripe is not configured" }, { status: 500 });
@@ -31,23 +25,23 @@ export async function POST(request) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
-  if (event.type === "checkout.session.completed") {
-    const session = event.data.object;
-    const orderNumber = session.metadata?.order_number || `HH-${Date.now().toString().slice(-8)}`;
-    const items = JSON.parse(session.metadata?.items || "[]");
-    const total = session.metadata?.total || "0.00";
+  if (event.type === "payment_intent.succeeded") {
+    const paymentIntent = event.data.object;
+    const orderNumber = paymentIntent.metadata?.order_number || `HH-${Date.now().toString().slice(-8)}`;
+    const items = JSON.parse(paymentIntent.metadata?.items || "[]");
+    const total = paymentIntent.metadata?.total || (paymentIntent.amount / 100).toFixed(2);
 
-    const customerDetails = session.customer_details || {};
+    const shippingInfo = paymentIntent.shipping || {};
     const customer = {
-      fullName: customerDetails.name || "",
-      email: customerDetails.email || "",
-      phone: customerDetails.phone || "",
+      fullName: shippingInfo.name || "",
+      email: paymentIntent.receipt_email || "",
+      phone: shippingInfo.phone || "",
     };
     const shipping = {
-      address: customerDetails.address?.line1 || "",
-      city: customerDetails.address?.city || "",
-      state: customerDetails.address?.state || "",
-      zip: customerDetails.address?.postal_code || "",
+      address: shippingInfo.address?.line1 || "",
+      city: shippingInfo.address?.city || "",
+      state: shippingInfo.address?.state || "",
+      zip: shippingInfo.address?.postal_code || "",
     };
 
     await sendOrderConfirmation({ orderNumber, customer, shipping, items, total });
@@ -57,7 +51,7 @@ export async function POST(request) {
 }
 
 async function sendOrderConfirmation({ orderNumber, customer, shipping, items, total }) {
-  const { SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASSWORD, SMTP_FROM_EMAIL, SMTP_FROM_NAME } =
+  const { SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASSWORD, SMTP_FROM_EMAIL, SMTP_FROM_NAME, ADMIN_EMAIL } =
     process.env;
 
   if (!SMTP_HOST || !SMTP_USER || !SMTP_PASSWORD) {
@@ -113,6 +107,7 @@ async function sendOrderConfirmation({ orderNumber, customer, shipping, items, t
     await transporter.sendMail({
       from: `"${SMTP_FROM_NAME || "HoodiesHome"}" <${SMTP_FROM_EMAIL || SMTP_USER}>`,
       to: customer.email,
+      bcc: ADMIN_EMAIL || undefined,
       subject: `Order Confirmed — ${orderNumber}`,
       html,
     });

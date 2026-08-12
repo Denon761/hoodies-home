@@ -1,0 +1,108 @@
+const STANDARD_VIEWS = ["front", "back", "left", "right", "hood", "pocket"];
+
+function defaultColors(mainId, hardwareId = "black") {
+  return {
+    body: mainId,
+    sleeves: mainId,
+    hoodExterior: mainId,
+    hoodInterior: mainId,
+    pocket: mainId,
+    cuffs: mainId,
+    waistband: mainId,
+    drawstrings: mainId,
+    eyelets: hardwareId,
+    labels: hardwareId,
+    neckTape: mainId,
+  };
+}
+
+export const hoodieStyles = [
+  {
+    id: "pullover",
+    name: "Pullover Hoodie",
+    fit: "Classic fit",
+    description: "The everyday essential — soft, relaxed, and endlessly customizable.",
+    basePrice: 59.99,
+    accentColor: "#0a0a0a",
+    image: "/images/styles/pullover.png",
+    tags: ["Best Seller"],
+    views: STANDARD_VIEWS,
+    defaultColors: defaultColors("black"),
+  },
+  {
+    id: "zip",
+    name: "Zip Hoodie",
+    fit: "Full zip",
+    description: "Layer-friendly full-zip build for everyday wear.",
+    basePrice: 64.99,
+    accentColor: "#9ca3af",
+    image: "/images/styles/zip.png",
+    tags: ["Everyday"],
+    views: STANDARD_VIEWS,
+    defaultColors: defaultColors("grey"),
+  },
+  {
+    id: "oversized",
+    name: "Oversized Hoodie",
+    fit: "Relaxed fit",
+    description: "Dropped shoulders and a roomy silhouette for streetwear looks.",
+    basePrice: 62.99,
+    accentColor: "#d8c3a5",
+    image: "/images/styles/oversized.png",
+    tags: ["Streetwear", "Trending"],
+    views: STANDARD_VIEWS,
+    defaultColors: defaultColors("sand"),
+  },
+  {
+    id: "heavyweight",
+    name: "Heavyweight Hoodie",
+    fit: "450+ GSM",
+    description: "Thick, premium construction built for cold weather and durability.",
+    basePrice: 69.99,
+    accentColor: "#27272a",
+    image: "/images/styles/heavyweight.png",
+    tags: ["Best Seller", "Heavyweight", "Winter"],
+    views: STANDARD_VIEWS,
+    defaultColors: defaultColors("charcoal"),
+  },
+  {
+    id: "streetwear",
+    name: "Streetwear Hoodie",
+    fit: "Premium street fit",
+    description: "Premium fabric and a tailored street-ready cut.",
+    basePrice: 74.99,
+    accentColor: "#1e3a8a",
+    image: "/images/styles/streetwear.png",
+    tags: ["Premium", "Streetwear"],
+    views: STANDARD_VIEWS,
+    defaultColors: defaultColors("navy"),
+  },
+  {
+    id: "cropped",
+    name: "Cropped Hoodie",
+    fit: "Trendy fit",
+    description: "Cropped length with a modern, trend-forward fit.",
+    basePrice: 57.99,
+    accentColor: "#f9a8d4",
+    image: "/images/styles/cropped.png",
+    tags: ["Trending", "Lightweight"],
+    views: ["front", "back", "left", "right", "hood"],
+    defaultColors: defaultColors("pink"),
+  },
+  {
+    id: "sleeveless",
+    name: "Sleeveless Hoodie",
+    fit: "Athletic fit",
+    description: "Sleeveless cut built for training and layering.",
+    basePrice: 54.99,
+    accentColor: "#e5e7eb",
+    image: "/images/styles/sleeveless.png",
+    tags: ["Performance", "Lightweight"],
+    views: ["front", "back", "left", "right", "hood"],
+    defaultColors: defaultColors("white"),
+  },
+];
+
+export function getStyleById(id) {
+  return hoodieStyles.find((s) => s.id === id);
+}
