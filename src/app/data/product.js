@@ -1,7 +1,7 @@
 export const product = {
   id: "classic-hoodie",
   name: "The Classic Hoodie",
-  price: 1,
+  price: 89,
   description:
     "A heavyweight, garment-dyed hoodie made from 100% cotton fleece. Relaxed fit, dropped shoulders, and a brushed interior for everyday comfort.",
   highlights: [
@@ -38,6 +38,30 @@ export const product = {
         "/images/products/navy-back.png",
         "/images/products/navy-presspectiuve.png",
       ],
+    },
+    {
+      id: "yellow-black",
+      name: "Yellow Black",
+      hex: "#facc15",
+      images: ["/images/products/yellow-black.jpeg"],
+    },
+    {
+      id: "white-black",
+      name: "White Black",
+      hex: "#f2f1ec",
+      images: ["/images/products/white-black.jpeg"],
+    },
+    {
+      id: "navy-beige",
+      name: "Navy Beige",
+      hex: "#1c2a44",
+      images: ["/images/products/navy-beige.jpeg"],
+    },
+    {
+      id: "green-pink",
+      name: "Green Pink",
+      hex: "#22c55e",
+      images: ["/images/products/green-pink.jpeg"],
     },
     {
       id: "black",
