@@ -1,11 +1,12 @@
 export const product = {
-  id: "classic-hoodie",
-  name: "The Classic Hoodie",
-  price: 89,
+  id: "hoodie-trousers-set",
+  name: "Hoodie + Trousers Set",
+  price: 1,
   description:
-    "A heavyweight, garment-dyed hoodie made from 100% cotton fleece. Relaxed fit, dropped shoulders, and a brushed interior for everyday comfort.",
+    "Complete your look with our premium hoodie and matching trousers set. Heavyweight cotton fleece hoodie paired with versatile stretch trousers for everyday comfort.",
   highlights: [
-    "100% cotton fleece, 400gsm heavyweight",
+    "Hoodie: 100% cotton fleece, 400gsm heavyweight",
+    "Trousers: Slim fit, stretch comfort fabric",
     "Relaxed unisex fit",
     "Brushed interior for softness",
     "Ribbed cuffs and hem",
@@ -216,10 +217,17 @@ export const fabrics = [
 ];
 
 export function getVariantById(variantId) {
-  return product.variants.find((v) => v.id === variantId);
+  const hoodie = product.variants.find((v) => v.id === variantId);
+  if (hoodie) return { ...hoodie, productType: "hoodie" };
+  const trouser = trousers.variants.find((v) => v.id === variantId);
+  if (trouser) return { ...trouser, productType: "trousers" };
+  return null;
 }
 
 export function getVariantImages(variant) {
+  if (variant.productType === "trousers") {
+    return getTrouserImages(variant);
+  }
   return variant.images && variant.images.length > 0 ? variant.images : [product.image];
 }
 
@@ -228,6 +236,9 @@ export function getVariantPrimaryImage(variant) {
 }
 
 export function getVariantDisplayName(variant) {
+  if (variant.productType === "trousers") {
+    return `${variant.name} Trousers`;
+  }
   return `${variant.name} - Drop 001`;
 }
 
@@ -238,3 +249,5 @@ export function getStyleById(id) {
 export function getFabricById(id) {
   return fabrics.find((f) => f.id === id);
 }
+
+export { trousers, getTrouserById, getTrouserImages, getTrouserPrimaryImage, getTrouserDisplayName };

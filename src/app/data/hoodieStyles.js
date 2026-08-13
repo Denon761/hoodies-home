@@ -34,7 +34,7 @@ export const hoodieStyles = [
     name: "Zip Hoodie",
     fit: "Full zip",
     description: "Layer-friendly full-zip build for everyday wear.",
-    basePrice: 64.99,
+    basePrice: 59.99,
     accentColor: "#9ca3af",
     image: "/images/styles/zip.png",
     tags: ["Everyday"],

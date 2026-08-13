@@ -22,11 +22,11 @@ import AccordionItem from "./AccordionItem";
 import ProductGallery from "./ProductGallery";
 
 const SIZE_CHART = [
-  { size: "S", chest: '20"', length: '27"', sleeve: '24"' },
-  { size: "M", chest: '22"', length: '28"', sleeve: '25"' },
-  { size: "L", chest: '24"', length: '29"', sleeve: '26"' },
-  { size: "XL", chest: '26"', length: '30"', sleeve: '27"' },
-  { size: "XXL", chest: '28"', length: '31"', sleeve: '28"' },
+  { size: "S", hoodieChest: '20"', hoodieLength: '27"', hoodieSleeve: '24"', trouserWaist: '28"', trouserInseam: '28"' },
+  { size: "M", hoodieChest: '22"', hoodieLength: '28"', hoodieSleeve: '25"', trouserWaist: '30"', trouserInseam: '30"' },
+  { size: "L", hoodieChest: '24"', hoodieLength: '29"', hoodieSleeve: '26"', trouserWaist: '32"', trouserInseam: '32"' },
+  { size: "XL", hoodieChest: '26"', hoodieLength: '30"', hoodieSleeve: '27"', trouserWaist: '34"', trouserInseam: '34"' },
+  { size: "XXL", hoodieChest: '28"', hoodieLength: '31"', hoodieSleeve: '28"', trouserWaist: '36"', trouserInseam: '36"' },
 ];
 
 const SIZES = SIZE_CHART.map((row) => row.size);
@@ -187,26 +187,29 @@ export default function ProductDetail({ variantId }) {
 
             <AccordionItem title="Size Guide" isOpen={openSection === "size"} onToggle={() => toggleSection("size")}>
               <p>
-                One relaxed unisex fit, runs true to size. For an oversized look, size up. All measurements in
-                inches, laid flat.
+                One relaxed unisex fit for both hoodie and trousers, runs true to size. For an oversized look, size up. All measurements in inches, laid flat.
               </p>
               <div className="mt-4 overflow-x-auto">
                 <table className="w-full min-w-[380px] border-collapse text-left">
                   <thead>
                     <tr className="border-b border-line text-xs font-semibold uppercase tracking-wide text-zinc-500">
                       <th className="py-2 pr-4">Size</th>
-                      <th className="py-2 pr-4">Chest</th>
-                      <th className="py-2 pr-4">Length</th>
-                      <th className="py-2">Sleeve</th>
+                      <th className="py-2 pr-4">Hoodie Chest</th>
+                      <th className="py-2 pr-4">Hoodie Length</th>
+                      <th className="py-2 pr-4">Hoodie Sleeve</th>
+                      <th className="py-2 pr-4">Trouser Waist</th>
+                      <th className="py-2">Trouser Inseam</th>
                     </tr>
                   </thead>
                   <tbody>
                     {SIZE_CHART.map((row) => (
                       <tr key={row.size} className="border-b border-line">
                         <td className="py-2 pr-4 font-semibold text-ink">{row.size}</td>
-                        <td className="py-2 pr-4">{row.chest}</td>
-                        <td className="py-2 pr-4">{row.length}</td>
-                        <td className="py-2">{row.sleeve}</td>
+                        <td className="py-2 pr-4">{row.hoodieChest}</td>
+                        <td className="py-2 pr-4">{row.hoodieLength}</td>
+                        <td className="py-2 pr-4">{row.hoodieSleeve}</td>
+                        <td className="py-2 pr-4">{row.trouserWaist}</td>
+                        <td className="py-2">{row.trouserInseam}</td>
                       </tr>
                     ))}
                   </tbody>
