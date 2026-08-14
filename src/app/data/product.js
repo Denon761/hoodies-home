@@ -86,7 +86,7 @@ export const product = {
       id: "black",
       name: "Black",
       hex: "#0a0a0a",
-      images: ["/images/products/black-front.png", "/images/products/acide-blcak-front.png"],
+      images: ["/images/products/black-front.png", "/images/products/acide-black.png"],
     },
     {
       id: "pink",
