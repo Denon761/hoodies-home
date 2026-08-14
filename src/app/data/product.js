@@ -1,7 +1,7 @@
 export const product = {
   id: "hoodie-trousers-set",
   name: "Hoodie + Trousers Set",
-  price: 1,
+  price: 98,
   description:
     "Complete your look with our premium hoodie and matching trousers set. Heavyweight cotton fleece hoodie paired with versatile stretch trousers for everyday comfort.",
   highlights: [
