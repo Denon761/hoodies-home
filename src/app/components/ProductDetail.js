@@ -86,25 +86,6 @@ export default function ProductDetail({ variantId }) {
 
           <div className="mt-6">
             <p className="text-sm font-semibold text-ink">
-              Color: <span className="font-normal text-zinc-500">{variant.name}</span>
-            </p>
-            <div className="mt-3 flex items-center gap-3">
-              {product.variants.map((v) => (
-                <Link
-                  key={v.id}
-                  href={`/product/${v.id}`}
-                  aria-label={v.name}
-                  className={`h-10 w-10 rounded-full border border-line transition-all ${
-                    v.id === variant.id ? "ring-2 ring-ink ring-offset-2 scale-110" : ""
-                  }`}
-                  style={{ backgroundColor: v.hex }}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <p className="text-sm font-semibold text-ink">
               Size: <span className="font-normal text-zinc-500">{size}</span>
             </p>
             <div className="mt-3 flex flex-wrap items-center gap-2">

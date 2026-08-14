@@ -24,78 +24,99 @@ export const product = {
       id: "white",
       name: "White",
       hex: "#f2f1ec",
+      collection: "001",
       images: [
-        "/images/products/white-front.png",
-        "/images/products/white-back.png",
-        "/images/products/white-prespective.png",
+        "/images/products/001/white-front.png",
+        "/images/products/001/white-back.png",
+        "/images/products/001/white-prespective.png",
       ],
     },
     {
       id: "navy",
       name: "Navy",
       hex: "#1c2a44",
+      collection: "001",
       images: [
-        "/images/products/navy-front.png",
-        "/images/products/navy-back.png",
-        "/images/products/navy-presspectiuve.png",
+        "/images/products/001/navy-front.png",
+        "/images/products/001/navy-back.png",
+        "/images/products/001/navy-presspectiuve.png",
       ],
-    },
-    {
-      id: "navy-acide",
-      name: "Navy Acide",
-      hex: "#1c2a44",
-      images: ["/images/products/navy-acide.png"],
-    },
-    {
-      id: "black-acide",
-      name: "Black Acide",
-      hex: "#0a0a0a",
-      images: ["/images/products/black-acide.png"],
-    },
-    {
-      id: "white-acide",
-      name: "White Acide",
-      hex: "#f2f1ec",
-      images: ["/images/products/white-acide.png"],
-    },
-    {
-      id: "yellow-black",
-      name: "Yellow Black",
-      hex: "#facc15",
-      images: ["/images/products/yellow-black.jpeg"],
-    },
-    {
-      id: "white-black",
-      name: "White Black",
-      hex: "#f2f1ec",
-      images: ["/images/products/white-black.jpeg"],
-    },
-    {
-      id: "navy-beige",
-      name: "Navy Beige",
-      hex: "#1c2a44",
-      images: ["/images/products/navy-beige.jpeg"],
-    },
-    {
-      id: "green-pink",
-      name: "Green Pink",
-      hex: "#22c55e",
-      images: ["/images/products/green-pink.jpeg"],
     },
     {
       id: "black",
       name: "Black",
       hex: "#0a0a0a",
-      images: ["/images/products/black-front.png", "/images/products/acide-black.png"],
+      collection: "001",
+      images: ["/images/products/001/black-front.png", "/images/products/acide/acide-black.png"],
     },
     {
       id: "pink",
       name: "Pink",
       hex: "#f0c8d0",
-      images: ["/images/products/pink-front.png"],
+      collection: "001",
+      images: ["/images/products/001/pink-front.png"],
+    },
+    {
+      id: "yellow-black",
+      name: "Yellow Black",
+      hex: "#facc15",
+      collection: "001-1",
+      images: ["/images/products/001-1/yellow-black.jpeg"],
+    },
+    {
+      id: "white-black",
+      name: "White Black",
+      hex: "#f2f1ec",
+      collection: "001-1",
+      images: ["/images/products/001-1/white-black.jpeg"],
+    },
+    {
+      id: "navy-beige",
+      name: "Navy Beige",
+      hex: "#1c2a44",
+      collection: "001-1",
+      images: ["/images/products/001-1/navy-beige.jpeg"],
+    },
+    {
+      id: "green-pink",
+      name: "Green Pink",
+      hex: "#22c55e",
+      collection: "001-1",
+      images: ["/images/products/001-1/green-pink.jpeg"],
+    },
+    {
+      id: "navy-acide",
+      name: "Navy Acide",
+      hex: "#1c2a44",
+      collection: "acide",
+      images: ["/images/products/acide/navy-acide.png"],
+    },
+    {
+      id: "black-acide",
+      name: "Black Acide",
+      hex: "#0a0a0a",
+      collection: "acide",
+      images: ["/images/products/acide/acide-black.png"],
+    },
+    {
+      id: "white-acide",
+      name: "White Acide",
+      hex: "#f2f1ec",
+      collection: "acide",
+      images: ["/images/products/acide/white-acide.png"],
     },
   ],
 };
+
+export const collections = [
+  { id: "001", name: "Drop 001", description: "The original heavyweight colorways." },
+  { id: "001-1", name: "Drop 001.1", description: "Panelled two-tone designs." },
+  { id: "acide", name: "Acide", description: "Acid-wash finish, limited run." },
+];
+
+export function getVariantsByCollection(collectionId) {
+  return product.variants.filter((v) => v.collection === collectionId);
+}
 
 export const hoodieStyles = [
   {

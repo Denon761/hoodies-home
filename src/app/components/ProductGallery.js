@@ -34,8 +34,16 @@ export default function ProductGallery({ images, alt, tint }) {
       <div className="overflow-hidden border-y border-line sm:border" style={{ backgroundColor: tint }} ref={emblaRef}>
         <div className="flex">
           {images.map((src, i) => (
-            <div key={src} className="relative aspect-[4/5] w-full shrink-0 sm:aspect-square">
-              <Image src={src} alt={alt} fill className="h-full w-auto object-contain" priority={i === 0} />
+            <div key={src} className="w-full shrink-0">
+              <Image
+                src={src}
+                alt={alt}
+                width={1024}
+                height={1536}
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="h-auto w-full"
+                priority={i === 0}
+              />
             </div>
           ))}
         </div>
