@@ -41,6 +41,24 @@ export const product = {
       ],
     },
     {
+      id: "navy-acide",
+      name: "Navy Acide",
+      hex: "#1c2a44",
+      images: ["/images/products/navy-acide.png"],
+    },
+    {
+      id: "black-acide",
+      name: "Black Acide",
+      hex: "#0a0a0a",
+      images: ["/images/products/black-acide.png"],
+    },
+    {
+      id: "white-acide",
+      name: "White Acide",
+      hex: "#f2f1ec",
+      images: ["/images/products/white-acide.png"],
+    },
+    {
       id: "yellow-black",
       name: "Yellow Black",
       hex: "#facc15",
