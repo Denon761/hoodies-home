@@ -63,7 +63,7 @@ export default function PaymentForm({ form, onSuccess, onError }) {
       <button
         type="submit"
         disabled={!stripe || isSubmitting}
-        className="flex w-full items-center justify-center gap-2 rounded-pill bg-primary py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark disabled:opacity-60"
+        className="flex w-full items-center justify-center gap-2 border border-ink bg-ink py-3 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-primary disabled:opacity-60"
       >
         <Lock className="h-4 w-4" /> {isSubmitting ? "Processing..." : "Pay Now"}
       </button>

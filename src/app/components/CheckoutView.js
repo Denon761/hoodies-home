@@ -81,7 +81,7 @@ export default function CheckoutView() {
         </p>
         <Link
           href="/"
-          className="mt-6 rounded-pill bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+          className="mt-6 border border-ink bg-ink px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-primary"
         >
           Back to Home
         </Link>
@@ -96,7 +96,7 @@ export default function CheckoutView() {
         <p className="mt-2 text-sm text-zinc-500">Add a hoodie to your cart before checking out.</p>
         <Link
           href="/"
-          className="mt-6 rounded-pill bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+          className="mt-6 border border-ink bg-ink px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-primary"
         >
           Shop Now
         </Link>
@@ -111,7 +111,7 @@ export default function CheckoutView() {
 
       <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-start">
         <div className="min-w-0 flex-1 space-y-6">
-          <div className="rounded-card border border-line bg-white p-5">
+          <div className="border border-line bg-white p-5">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-ink">Personal Details</h2>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               <Field label="Full Name" value={form.fullName} onChange={handleChange("fullName")} required />
@@ -120,7 +120,7 @@ export default function CheckoutView() {
             </div>
           </div>
 
-          <div className="rounded-card border border-line bg-white p-5">
+          <div className="border border-line bg-white p-5">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-ink">Shipping Details</h2>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
@@ -132,16 +132,16 @@ export default function CheckoutView() {
             </div>
           </div>
 
-          <div className="rounded-card border border-line bg-white p-5">
+          <div className="border border-line bg-white p-5">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-ink">Payment Type</h2>
-            <div className="mt-4 flex items-center gap-3 rounded-lg border border-ink bg-ink px-4 py-4 text-white sm:w-64">
+            <div className="mt-4 flex items-center gap-3 border border-ink bg-ink px-4 py-4 text-white sm:w-64">
               <CreditCard className="h-5 w-5" />
               <span className="text-sm font-semibold">Credit / Debit Card</span>
             </div>
           </div>
         </div>
 
-        <aside className="w-full shrink-0 rounded-card border border-line bg-white p-5 lg:sticky lg:top-24 lg:w-[360px]">
+        <aside className="w-full shrink-0 border border-line bg-white p-5 lg:sticky lg:top-24 lg:w-[360px]">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-ink">Order Summary</h3>
             <span className="text-xs font-semibold text-zinc-500">#{orderNumber}</span>
@@ -154,11 +154,11 @@ export default function CheckoutView() {
             {items.map((item) => (
               <li key={item.id} className="flex items-center gap-3">
                 <div
-                  className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg"
+                  className="relative h-16 w-16 shrink-0 overflow-hidden border border-line"
                   style={{ backgroundColor: `${item.hex}14` }}
                 >
                   <Image src={item.image} alt={item.name} fill className="object-contain p-2" />
-                  <span className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-ink text-[10px] font-bold text-white">
+                  <span className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center bg-ink text-[10px] font-bold text-white">
                     {item.quantity}
                   </span>
                 </div>
@@ -183,7 +183,7 @@ export default function CheckoutView() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="mt-4 flex w-full items-center justify-center gap-2 rounded-pill bg-primary py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark disabled:opacity-60"
+            className="mt-4 flex w-full items-center justify-center gap-2 border border-ink bg-ink py-3 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-primary disabled:opacity-60"
           >
             <Lock className="h-4 w-4" /> {isSubmitting ? "Placing Order..." : "Place Order"}
           </button>
@@ -205,7 +205,7 @@ function Field({ label, type = "text", value, onChange, required }) {
         value={value}
         onChange={onChange}
         required={required}
-        className="mt-1.5 w-full rounded-lg border border-line px-3 py-2 text-sm text-ink focus:border-primary focus:outline-none"
+        className="mt-1.5 w-full border border-line px-3 py-2 text-sm text-ink focus:border-ink focus:outline-none"
       />
     </label>
   );

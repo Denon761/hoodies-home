@@ -5,11 +5,14 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { Trash2, Minus, Plus, ArrowRight, ShieldCheck } from "lucide-react";
 import { selectCartItems, selectCartTotal, removeFromCart, updateCartItemQuantity } from "../store/cartSlice";
+import { product, collections, getVariantsByCollection, getVariantPrimaryImage } from "../data/product";
 
 export default function CartView() {
   const dispatch = useDispatch();
   const items = useSelector(selectCartItems);
   const total = useSelector(selectCartTotal);
+  const cartVariantIds = new Set(items.map((item) => item.variantId));
+  const relatedVariants = product.variants.filter((v) => !cartVariantIds.has(v.id)).slice(0, 10);
 
   if (items.length === 0) {
     return (
@@ -18,7 +21,7 @@ export default function CartView() {
         <p className="mt-2 text-sm text-zinc-500">Add a hoodie to your cart to see it here.</p>
         <Link
           href="/"
-          className="mt-6 flex items-center gap-2 rounded-pill bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+          className="mt-6 flex items-center gap-2 border border-ink bg-ink px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-primary"
         >
           Shop Now <ArrowRight className="h-4 w-4" />
         </Link>
@@ -39,13 +42,13 @@ export default function CartView() {
       <p className="mt-1 text-sm text-zinc-500">Review your items before you check out.</p>
 
       <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-start">
-        <div className="min-w-0 flex-1 rounded-card border border-line bg-white">
+        <div className="min-w-0 flex-1 border border-line bg-white">
           {items.map((item, index) => (
             <CartRow key={item.id} item={item} dispatch={dispatch} isLast={index === items.length - 1} />
           ))}
         </div>
 
-        <aside className="w-full shrink-0 rounded-card border border-line bg-white p-5 lg:sticky lg:top-24 lg:w-[340px]">
+        <aside className="w-full shrink-0 border border-line bg-white p-5 lg:sticky lg:top-24 lg:w-[340px]">
           <h3 className="text-sm font-semibold uppercase tracking-wide text-ink">Order Summary</h3>
           <dl className="mt-4 space-y-2 text-sm">
             <div className="flex items-center justify-between">
@@ -63,13 +66,13 @@ export default function CartView() {
           </div>
           <Link
             href="/checkout"
-            className="mt-4 flex w-full items-center justify-center gap-2 rounded-pill bg-ink py-3 text-sm font-semibold text-white transition-colors hover:bg-primary"
+            className="mt-4 flex w-full items-center justify-center gap-2 border border-ink bg-ink py-3 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-primary"
           >
             Checkout <ArrowRight className="h-4 w-4" />
           </Link>
           <Link
             href="/"
-            className="mt-2 block w-full rounded-pill border border-line py-3 text-center text-sm font-semibold text-ink transition-colors hover:border-primary hover:text-primary"
+            className="mt-2 block w-full border border-line py-3 text-center text-xs font-bold uppercase tracking-[0.2em] text-ink transition-colors hover:border-ink"
           >
             Continue Shopping
           </Link>
@@ -78,6 +81,60 @@ export default function CartView() {
           </p>
         </aside>
       </div>
+
+      {relatedVariants.length > 0 && (
+        <div className="mt-16 border-t border-line pt-10 sm:mt-20 sm:pt-12">
+          <div className="flex items-baseline gap-3">
+            <span className="font-display text-lg text-ink">01</span>
+            <h2 className="font-display text-lg uppercase tracking-tight text-ink">You May Also Like</h2>
+          </div>
+
+          <div className="mt-6 grid grid-cols-2 gap-px bg-line sm:grid-cols-4">
+            {relatedVariants.map((v) => {
+              const siblingVariants = getVariantsByCollection(v.collection);
+              return (
+                <div key={v.id} className="group flex flex-col bg-white">
+                  <Link href={`/product/${v.id}`} className="flex flex-col">
+                    <div className="relative aspect-[4/5] overflow-hidden bg-surface">
+                      <span className="absolute left-3 top-3 z-10 text-[8px] font-bold uppercase tracking-wide text-white">
+                        New Arrivals
+                      </span>
+                      <Image
+                        src={getVariantPrimaryImage(v)}
+                        alt={`${product.name} — ${v.name}`}
+                        fill
+                        sizes="(min-width: 640px) 25vw, 50vw"
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="px-4 pt-3 pb-1">
+                      <div className="flex items-center justify-between">
+                        <p className="text-xs font-bold text-ink">
+                          {collections.find((c) => c.id === v.collection)?.name}
+                        </p>
+                        <p className="text-sm text-zinc-500">${product.price.toFixed(2)}</p>
+                      </div>
+                      <p className="mt-0.5 text-xs text-zinc-500">{v.name}</p>
+                    </div>
+                  </Link>
+                  <div className="flex items-center px-4 pb-2">
+                    {siblingVariants.map((sv) => (
+                      <Link
+                        key={sv.id}
+                        href={`/product/${sv.id}`}
+                        aria-label={sv.name}
+                        title={sv.name}
+                        className="h-1.5 w-5 border border-line"
+                        style={{ backgroundColor: sv.hex }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -86,7 +143,7 @@ function CartRow({ item, dispatch, isLast }) {
   return (
     <div className={`flex gap-4 p-4 sm:p-5 ${isLast ? "" : "border-b border-line"}`}>
       <div
-        className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-lg"
+        className="relative flex h-24 w-24 shrink-0 items-center justify-center border border-line"
         style={{ backgroundColor: `${item.hex}14` }}
       >
         <Image src={item.image} alt={item.name} fill className="object-contain p-2" />
@@ -138,7 +195,7 @@ function QtyButton({ children, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className="flex h-6 w-6 items-center justify-center rounded-md border border-line text-zinc-600 transition-colors hover:border-primary hover:text-primary"
+      className="flex h-6 w-6 items-center justify-center border border-line text-zinc-600 transition-colors hover:border-primary hover:text-primary"
     >
       {children}
     </button>

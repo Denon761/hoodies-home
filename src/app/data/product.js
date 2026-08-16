@@ -47,7 +47,7 @@ export const product = {
       name: "Black",
       hex: "#0a0a0a",
       collection: "001",
-      images: ["/images/products/001/black-front.png", "/images/products/acide/acide-black.png"],
+      images: ["/images/products/001/black-front.png"],
     },
     {
       id: "pink",
@@ -68,14 +68,20 @@ export const product = {
       name: "White Black",
       hex: "#f2f1ec",
       collection: "001-1",
-      images: ["/images/products/001-1/white-black.jpeg"],
+      images: [
+        "/images/products/001-1/white-black.png",
+        "/images/products/001-1/white-black-back.png",
+      ],
     },
     {
       id: "navy-beige",
       name: "Navy Beige",
       hex: "#1c2a44",
       collection: "001-1",
-      images: ["/images/products/001-1/navy-beige.jpeg"],
+      images: [
+        "/images/products/001-1/navy-beige.png",
+        "/images/products/001-1/navy-beige-back.png",
+      ],
     },
     {
       id: "green-pink",
@@ -96,7 +102,10 @@ export const product = {
       name: "Black Acide",
       hex: "#0a0a0a",
       collection: "acide",
-      images: ["/images/products/acide/acide-black.png"],
+      images: [
+        "/images/products/acide/acide-blcak-front.png",
+        "/images/products/acide/acide-black.png",
+      ],
     },
     {
       id: "white-acide",
@@ -105,13 +114,20 @@ export const product = {
       collection: "acide",
       images: ["/images/products/acide/white-acide.png"],
     },
+    {
+      id: "brown-acide",
+      name: "Brown Acide",
+      hex: "#6b4a34",
+      collection: "acide",
+      images: ["/images/products/acide/brown-acide.png"],
+    },
   ],
 };
 
 export const collections = [
+  { id: "acide", name: "Acide", description: "Acid-wash finish, limited run." },
   { id: "001", name: "Drop 001", description: "The original heavyweight colorways." },
   { id: "001-1", name: "Drop 001.1", description: "Panelled two-tone designs." },
-  { id: "acide", name: "Acide", description: "Acid-wash finish, limited run." },
 ];
 
 export function getVariantsByCollection(collectionId) {

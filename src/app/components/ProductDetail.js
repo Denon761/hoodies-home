@@ -1,58 +1,58 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
+import { Check, Minus, Plus, ShoppingBasket, Truck, ShieldCheck, RotateCcw } from "lucide-react";
 import {
-  Check,
-  ChevronLeft,
-  ChevronRight,
-  Minus,
-  Plus,
-  ShoppingBasket,
-  Truck,
-  ShieldCheck,
-  RotateCcw,
-} from "lucide-react";
-import { product, getVariantImages, getVariantPrimaryImage, getVariantDisplayName } from "../data/product";
+  product,
+  collections,
+  getVariantImages,
+  getVariantPrimaryImage,
+  getVariantDisplayName,
+  getVariantsByCollection,
+} from "../data/product";
 import { addToCart } from "../store/cartSlice";
 import AccordionItem from "./AccordionItem";
 import ProductGallery from "./ProductGallery";
+import SizeGuideModal from "./SizeGuideModal";
 
-const SIZE_CHART = [
-  { size: "S", hoodieChest: '20"', hoodieLength: '27"', hoodieSleeve: '24"', trouserWaist: '28"', trouserInseam: '28"' },
-  { size: "M", hoodieChest: '22"', hoodieLength: '28"', hoodieSleeve: '25"', trouserWaist: '30"', trouserInseam: '30"' },
-  { size: "L", hoodieChest: '24"', hoodieLength: '29"', hoodieSleeve: '26"', trouserWaist: '32"', trouserInseam: '32"' },
-  { size: "XL", hoodieChest: '26"', hoodieLength: '30"', hoodieSleeve: '27"', trouserWaist: '34"', trouserInseam: '34"' },
-  { size: "XXL", hoodieChest: '28"', hoodieLength: '31"', hoodieSleeve: '28"', trouserWaist: '36"', trouserInseam: '36"' },
-];
-
-const SIZES = SIZE_CHART.map((row) => row.size);
+const SIZES = ["S", "M", "L", "XL", "XXL"];
 
 export default function ProductDetail({ variantId }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const variant = product.variants.find((v) => v.id === variantId) ?? product.variants[0];
-  const relatedVariants = product.variants.filter((v) => v.id !== variant.id);
+  const relatedVariants = product.variants.filter((v) => v.id !== variant.id).slice(0, 10);
   const images = getVariantImages(variant);
-  const [size, setSize] = useState("M");
+  const [size, setSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [openSection, setOpenSection] = useState("description");
-  const relatedScrollRef = useRef(null);
+  const [showStickyBar, setShowStickyBar] = useState(false);
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const sizeSectionRef = useRef(null);
+
+  useEffect(() => {
+    const el = sizeSectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => setShowStickyBar(!entry.isIntersecting), {
+      rootMargin: "0px 0px -60% 0px",
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   function toggleSection(id) {
     setOpenSection((current) => (current === id ? null : id));
   }
 
-  function scrollRelated(direction) {
-    const el = relatedScrollRef.current;
-    if (!el) return;
-    el.scrollBy({ left: direction * el.clientWidth * 0.85, behavior: "smooth" });
-  }
-
   function handleAddToCart() {
+    if (!size) {
+      sizeSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
     dispatch(
       addToCart({
         variantId: variant.id,
@@ -69,8 +69,8 @@ export default function ProductDetail({ variantId }) {
   }
 
   return (
-    <div className="mx-auto w-full max-w-[1536px] pb-10 sm:px-6 sm:py-14">
-      <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+    <div className={`mx-auto w-full max-w-[1536px] sm:px-6 sm:py-14 ${showStickyBar ? "pb-24" : "pb-10"}`}>
+      <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
         <ProductGallery
           key={variantId}
           images={images}
@@ -79,59 +79,75 @@ export default function ProductDetail({ variantId }) {
         />
 
         <div className="flex flex-col px-4 sm:px-0">
-          <h1 className="font-display text-3xl uppercase tracking-tight text-ink sm:text-4xl">
+          <h1 className="font-display text-xl uppercase tracking-tight text-ink sm:text-4xl">
             {getVariantDisplayName(variant)}
           </h1>
-          <p className="mt-2 text-2xl font-bold text-ink">${product.price.toFixed(2)}</p>
+          <p className="mt-2 text-xl font-bold text-ink">${product.price.toFixed(2)}</p>
 
-          <div className="mt-6">
-            <p className="text-sm font-semibold text-ink">
-              Size: <span className="font-normal text-zinc-500">{size}</span>
-            </p>
-            <div className="mt-3 flex flex-wrap items-center gap-2">
-              {SIZES.map((s) => (
+          <button
+            type="button"
+            onClick={() => setShowSizeGuide(true)}
+            className="mt-6 flex w-full items-center justify-between text-sm font-semibold uppercase tracking-wide text-ink"
+          >
+            Size Guide
+            <span className="text-xs font-normal normal-case text-blue-600">what is my size?</span>
+          </button>
+
+          <div ref={sizeSectionRef} className="mt-3">
+            <div className="grid grid-cols-5 border border-line">
+              {SIZES.map((s, i) => (
                 <button
                   key={s}
                   type="button"
                   onClick={() => setSize(s)}
-                  className={`flex h-10 min-w-10 items-center justify-center rounded-pill border px-3 text-sm font-semibold transition-colors ${
-                    s === size ? "border-ink bg-ink text-white" : "border-line text-ink hover:border-ink"
-                  }`}
+                  className={`flex h-11 items-center justify-center text-xs font-semibold uppercase transition-colors ${
+                    i > 0 ? "border-l border-line" : ""
+                  } ${s === size ? "bg-ink text-white" : "text-ink hover:bg-surface"}`}
                 >
                   {s}
                 </button>
               ))}
             </div>
-          </div>
 
-          <div className="mt-8 flex items-center gap-4">
-            <div className="flex items-center rounded-pill border border-line">
+            <div className="mt-4 flex items-center gap-4">
+              <div className="flex items-center border border-line">
+                <button
+                  type="button"
+                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                  className="flex h-11 w-11 items-center justify-center text-zinc-600 hover:text-primary"
+                  aria-label="Decrease quantity"
+                >
+                  <Minus className="h-4 w-4" />
+                </button>
+                <span className="w-8 text-center text-sm font-semibold">{quantity}</span>
+                <button
+                  type="button"
+                  onClick={() => setQuantity((q) => q + 1)}
+                  className="flex h-11 w-11 items-center justify-center text-zinc-600 hover:text-primary"
+                  aria-label="Increase quantity"
+                >
+                  <Plus className="h-4 w-4" />
+                </button>
+              </div>
+
               <button
                 type="button"
-                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                className="flex h-11 w-11 items-center justify-center text-zinc-600 hover:text-primary"
-                aria-label="Decrease quantity"
+                onClick={handleAddToCart}
+                className={`flex flex-1 items-center justify-center gap-2 border py-3.5 text-sm font-semibold uppercase tracking-wide transition-colors ${
+                  size
+                    ? "border-ink bg-ink text-white hover:bg-primary"
+                    : "border-line bg-white text-zinc-400"
+                }`}
               >
-                <Minus className="h-4 w-4" />
-              </button>
-              <span className="w-8 text-center text-sm font-semibold">{quantity}</span>
-              <button
-                type="button"
-                onClick={() => setQuantity((q) => q + 1)}
-                className="flex h-11 w-11 items-center justify-center text-zinc-600 hover:text-primary"
-                aria-label="Increase quantity"
-              >
-                <Plus className="h-4 w-4" />
+                {size ? (
+                  <>
+                    <ShoppingBasket className="h-4 w-4" /> Add to Cart
+                  </>
+                ) : (
+                  "Select Size"
+                )}
               </button>
             </div>
-
-            <button
-              type="button"
-              onClick={handleAddToCart}
-              className="flex flex-1 items-center justify-center gap-2 rounded-pill bg-ink py-3.5 text-sm font-semibold text-white transition-colors hover:bg-primary"
-            >
-              <ShoppingBasket className="h-4 w-4" /> Add to Cart
-            </button>
           </div>
 
           <div className="mt-10 grid grid-cols-3 gap-4 border-t border-line pt-6">
@@ -166,38 +182,6 @@ export default function ProductDetail({ variantId }) {
               </ul>
             </AccordionItem>
 
-            <AccordionItem title="Size Guide" isOpen={openSection === "size"} onToggle={() => toggleSection("size")}>
-              <p>
-                One relaxed unisex fit for both hoodie and trousers, runs true to size. For an oversized look, size up. All measurements in inches, laid flat.
-              </p>
-              <div className="mt-4 overflow-x-auto">
-                <table className="w-full min-w-[380px] border-collapse text-left">
-                  <thead>
-                    <tr className="border-b border-line text-xs font-semibold uppercase tracking-wide text-zinc-500">
-                      <th className="py-2 pr-4">Size</th>
-                      <th className="py-2 pr-4">Hoodie Chest</th>
-                      <th className="py-2 pr-4">Hoodie Length</th>
-                      <th className="py-2 pr-4">Hoodie Sleeve</th>
-                      <th className="py-2 pr-4">Trouser Waist</th>
-                      <th className="py-2">Trouser Inseam</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {SIZE_CHART.map((row) => (
-                      <tr key={row.size} className="border-b border-line">
-                        <td className="py-2 pr-4 font-semibold text-ink">{row.size}</td>
-                        <td className="py-2 pr-4">{row.hoodieChest}</td>
-                        <td className="py-2 pr-4">{row.hoodieLength}</td>
-                        <td className="py-2 pr-4">{row.hoodieSleeve}</td>
-                        <td className="py-2 pr-4">{row.trouserWaist}</td>
-                        <td className="py-2">{row.trouserInseam}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </AccordionItem>
-
             <AccordionItem title="Care Instructions" isOpen={openSection === "care"} onToggle={() => toggleSection("care")}>
               <ul className="space-y-1.5">
                 {product.care.map((point) => (
@@ -213,60 +197,93 @@ export default function ProductDetail({ variantId }) {
       </div>
 
       <div className="mt-16 border-t border-line pt-10 sm:-mx-6 sm:mt-20 sm:pt-12">
-        <div className="flex items-center justify-between gap-3 px-4 sm:px-6">
-          <div className="flex items-baseline gap-3">
-            <span className="font-display text-lg text-ink">01</span>
-            <h2 className="font-display text-lg uppercase tracking-tight text-ink">You May Also Like</h2>
-          </div>
-          <div className="flex gap-2 sm:hidden">
-            <button
-              type="button"
-              onClick={() => scrollRelated(-1)}
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white"
-              aria-label="Scroll left"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollRelated(1)}
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white"
-              aria-label="Scroll right"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
-          </div>
+        <div className="flex items-baseline gap-3 px-4 sm:px-6">
+          <span className="font-display text-lg text-ink">01</span>
+          <h2 className="font-display text-lg uppercase tracking-tight text-ink">You May Also Like</h2>
         </div>
 
-        <div
-          ref={relatedScrollRef}
-          className="mt-6 flex snap-x snap-mandatory gap-px overflow-x-auto scroll-smooth bg-line sm:grid sm:grid-cols-3 sm:overflow-visible sm:snap-none"
+        <div className="mt-6 grid grid-cols-2 gap-px bg-line sm:grid-cols-4">
+          {relatedVariants.map((v) => {
+            const siblingVariants = getVariantsByCollection(v.collection);
+            return (
+              <div key={v.id} className="group flex flex-col bg-white">
+                <Link href={`/product/${v.id}`} className="flex flex-col">
+                  <div className="relative aspect-[4/5] overflow-hidden bg-surface">
+                    <span className="absolute left-3 top-3 z-10 text-[8px] font-bold uppercase tracking-wide text-white">
+                      New Arrivals
+                    </span>
+                    <Image
+                      src={getVariantPrimaryImage(v)}
+                      alt={`${product.name} — ${v.name}`}
+                      fill
+                      sizes="(min-width: 640px) 25vw, 50vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="px-4 pt-3 pb-1">
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs font-bold text-ink">
+                        {collections.find((c) => c.id === v.collection)?.name}
+                      </p>
+                      <p className="text-sm text-zinc-500">${product.price.toFixed(2)}</p>
+                    </div>
+                    <p className="mt-0.5 text-xs text-zinc-500">{v.name}</p>
+                  </div>
+                </Link>
+                <div className="flex items-center px-4 pb-2">
+                  {siblingVariants.map((sv) => (
+                    <Link
+                      key={sv.id}
+                      href={`/product/${sv.id}`}
+                      aria-label={sv.name}
+                      title={sv.name}
+                      className="h-1.5 w-5 border border-line"
+                      style={{ backgroundColor: sv.hex }}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <Link
+          href="/#shop"
+          className="mt-px flex w-full items-center justify-center bg-ink/10 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-ink backdrop-blur-md transition-colors hover:bg-ink/20"
         >
-          {relatedVariants.map((v) => (
-            <Link
-              key={v.id}
-              href={`/product/${v.id}`}
-              className="group flex w-[78%] shrink-0 snap-start flex-col bg-white sm:w-auto sm:shrink"
-            >
-              <div className="relative aspect-[3/4] overflow-hidden bg-surface">
-                <span className="absolute left-3 top-3 z-10 rounded-full bg-ink px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-white">
-                  {v.name}
-                </span>
-                <Image
-                  src={getVariantPrimaryImage(v)}
-                  alt={`${product.name} — ${v.name}`}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
-              <div className="px-4 py-3">
-                <p className="text-sm text-ink">{getVariantDisplayName(v)}</p>
-                <p className="mt-0.5 text-sm text-zinc-500">${product.price.toFixed(2)}</p>
-              </div>
-            </Link>
-          ))}
+          See More
+        </Link>
+      </div>
+
+      <div
+        className={`fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/80 backdrop-blur-md transition-transform duration-300 ease-out ${
+          showStickyBar ? "translate-y-0" : "translate-y-full"
+        }`}
+      >
+        <div className="mx-auto flex w-full max-w-[1536px] items-center gap-4 px-4 py-3 sm:px-6">
+          <div className="hidden min-w-0 flex-1 sm:block">
+            <p className="truncate text-sm font-semibold text-ink">{getVariantDisplayName(variant)}</p>
+            <p className="text-sm text-zinc-500">${product.price.toFixed(2)}</p>
+          </div>
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            className={`flex flex-1 items-center justify-center gap-2 border py-3 text-sm font-semibold uppercase tracking-wide transition-colors sm:flex-none sm:px-10 ${
+              size ? "border-ink bg-ink text-white hover:bg-primary" : "border-line bg-white text-zinc-400"
+            }`}
+          >
+            {size ? (
+              <>
+                <ShoppingBasket className="h-4 w-4" /> Add to Cart
+              </>
+            ) : (
+              "Select Size"
+            )}
+          </button>
         </div>
       </div>
+
+      <SizeGuideModal open={showSizeGuide} onClose={() => setShowSizeGuide(false)} onSelectSize={setSize} />
     </div>
   );
 }

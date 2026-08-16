@@ -136,7 +136,7 @@ export default function CheckoutPage() {
         <button
           type="button"
           onClick={() => router.push("/")}
-          className="mt-6 rounded-pill bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+          className="mt-6 border border-ink bg-ink px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-primary"
         >
           Shop Now
         </button>
@@ -145,14 +145,14 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-[1536px] px-4 py-8 sm:px-6">
+    <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6">
       <h1 className="font-display text-xl uppercase text-ink">Checkout</h1>
       <p className="mt-1 text-sm text-zinc-500">
         Enter your contact, shipping, and card details to complete your order.
       </p>
 
-      <div className="mx-auto mt-6 w-full max-w-[720px] space-y-6">
-        <div className="rounded-card border border-line bg-white p-5">
+      <div className="mt-6 w-full space-y-6">
+        <div className="border border-line bg-white p-5">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-ink">Contact Details</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <Field label="Full Name" value={form.fullName} onChange={handleChange("fullName")} required />
@@ -161,7 +161,7 @@ export default function CheckoutPage() {
           </div>
         </div>
 
-        <div className="rounded-card border border-line bg-white p-5">
+        <div className="border border-line bg-white p-5">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-ink">Shipping Address</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
@@ -175,7 +175,7 @@ export default function CheckoutPage() {
               <select
                 value={form.country}
                 onChange={handleChange("country")}
-                className="mt-1.5 w-full rounded-lg border border-line px-3 py-2 text-sm text-ink focus:border-primary focus:outline-none"
+                className="mt-1.5 w-full border border-line px-3 py-2 text-sm text-ink focus:border-ink focus:outline-none"
               >
                 {COUNTRIES.map((c) => (
                   <option key={c.code} value={c.code}>
@@ -187,17 +187,17 @@ export default function CheckoutPage() {
           </div>
         </div>
 
-        <div className="rounded-card border border-line bg-white p-5">
+        <div className="border border-line bg-white p-5">
           <h3 className="text-sm font-semibold uppercase tracking-wide text-ink">Order Summary</h3>
           <ul className="mt-4 space-y-4">
             {items.map((item) => (
               <li key={item.id} className="flex items-center gap-3">
                 <div
-                  className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg"
+                  className="relative h-16 w-16 shrink-0 overflow-hidden border border-line"
                   style={{ backgroundColor: `${item.hex}14` }}
                 >
                   <img src={item.image} alt={item.name} className="h-full w-full object-contain p-2" />
-                  <span className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-ink text-[10px] font-bold text-white">
+                  <span className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center bg-ink text-[10px] font-bold text-white">
                     {item.quantity}
                   </span>
                 </div>
@@ -219,7 +219,7 @@ export default function CheckoutPage() {
           </div>
         </div>
 
-        <div className="rounded-card border border-line bg-white p-5">
+        <div className="border border-line bg-white p-5">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-ink">Card Details</h2>
           {clientSecret ? (
             <Elements stripe={stripePromise} options={{ clientSecret }}>
@@ -249,7 +249,7 @@ function Field({ label, type = "text", value, onChange, required }) {
         value={value}
         onChange={onChange}
         required={required}
-        className="mt-1.5 w-full rounded-lg border border-line px-3 py-2 text-sm text-ink focus:border-primary focus:outline-none"
+        className="mt-1.5 w-full border border-line px-3 py-2 text-sm text-ink focus:border-ink focus:outline-none"
       />
     </label>
   );
