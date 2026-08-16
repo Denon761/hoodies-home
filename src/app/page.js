@@ -40,7 +40,7 @@ export default function Home() {
               repeat.
             </p>
             <Link
-              href="#shop"
+              href="/shop"
               className="mt-8 flex w-full animate-fade-up items-center justify-center rounded-none bg-white/20 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-white opacity-0 backdrop-blur-md [animation-delay:550ms] transition-colors hover:bg-white/30"
             >
               Shop Now
@@ -138,7 +138,7 @@ export default function Home() {
               Real streets, real comfort. Grab your color before Drop 001 sells out.
             </p>
             <Link
-              href="#shop"
+              href="/shop"
               className="mt-8 flex w-full items-center justify-center rounded-none bg-white/20 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-white backdrop-blur-md transition-colors hover:bg-white/30"
             >
               Shop Now

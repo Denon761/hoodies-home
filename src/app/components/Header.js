@@ -124,7 +124,7 @@ export default function Header() {
           </div>
           <nav className="flex flex-col px-4 py-4">
             <Link
-              href="/#shop"
+              href="/shop"
               onClick={() => setMenuOpen(false)}
               className="border-b border-white/10 py-3 text-sm uppercase tracking-wide text-zinc-200 hover:text-white"
             >
@@ -133,7 +133,7 @@ export default function Header() {
             {collections.map((c) => (
               <Link
                 key={c.id}
-                href={`/#${c.id}`}
+                href={`/shop#${c.id}`}
                 onClick={() => setMenuOpen(false)}
                 className="border-b border-white/10 py-3 text-sm uppercase tracking-wide text-zinc-200 hover:text-white"
               >

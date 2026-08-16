@@ -2,7 +2,7 @@ import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
 
 export const metadata = {
-  title: "Order Confirmed | HoodiesHome",
+  title: "Order Confirmed",
 };
 
 export default function CheckoutSuccessPage({ searchParams }) {

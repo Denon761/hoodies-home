@@ -2,7 +2,7 @@ import Link from "next/link";
 import { XCircle } from "lucide-react";
 
 export const metadata = {
-  title: "Payment Cancelled | HoodiesHome",
+  title: "Payment Cancelled",
 };
 
 export default function CheckoutCancelPage() {

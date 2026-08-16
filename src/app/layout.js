@@ -2,6 +2,7 @@ import { Montserrat, Archivo_Black } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import SiteChrome from "./components/SiteChrome";
+import { SITE_URL, SITE_NAME } from "./lib/site";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -16,9 +17,34 @@ const archivoBlack = Archivo_Black({
 });
 
 export const metadata = {
-  title: "HoodiesHome | The Classic Hoodie",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "HoodiesHome | Heavyweight Hoodies, Built to Last",
+    template: `%s | ${SITE_NAME}`,
+  },
   description:
-    "A heavyweight, garment-dyed cotton hoodie in four colors. Free shipping, secure checkout, easy returns.",
+    "Shop the HoodiesHome heavyweight hoodie — 400GSM cotton fleece across every current drop. Free shipping, secure checkout, easy returns.",
+  keywords: ["heavyweight hoodie", "cotton fleece hoodie", "streetwear hoodie", "HoodiesHome"],
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    title: "HoodiesHome | Heavyweight Hoodies, Built to Last",
+    description:
+      "Shop the HoodiesHome heavyweight hoodie — 400GSM cotton fleece across every current drop.",
+    url: SITE_URL,
+    images: [{ url: "/images/hero1.png" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HoodiesHome | Heavyweight Hoodies, Built to Last",
+    description:
+      "Shop the HoodiesHome heavyweight hoodie — 400GSM cotton fleece across every current drop.",
+    images: ["/images/hero1.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }) {

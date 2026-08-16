@@ -3,15 +3,15 @@ import Image from "next/image";
 import { getIcon } from "../lib/icons";
 
 const TRUST = [
-  { icon: "Flag", title: "Made in USA", subtitle: "Proudly printed" },
+  { icon: "Thermometer", title: "400GSM Heavyweight", subtitle: "Cotton fleece" },
   { icon: "ShieldCheck", title: "Premium Quality", subtitle: "Top materials" },
-  { icon: "Award", title: "6 Month Warranty", subtitle: "Quality guaranteed" },
+  { icon: "Feather", title: "Brushed Interior", subtitle: "Soft & cozy" },
   { icon: "Lock", title: "Secure Checkout", subtitle: "Safe & encrypted" },
 ];
 
 const SHOP_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/#shop", label: "Go To Shop" },
+  { href: "/shop", label: "Go To Shop" },
   { href: "/cart", label: "Cart" },
 ];
 
@@ -75,10 +75,10 @@ export default function Footer() {
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">We Accept</p>
           <Image
             src="/images/payment.webp"
-            alt="Visa, MasterCard, PayPal, Skrill, Maestro, Visa Electron"
+            alt="Stripe, Amex, Mastercard, PayPal, Visa, Apple Pay, Google Pay"
             width={2306}
             height={504}
-            className="h-8 w-auto"
+            className="h-12 w-auto"
           />
         </div>
 

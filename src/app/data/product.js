@@ -1,12 +1,11 @@
 export const product = {
-  id: "hoodie-trousers-set",
-  name: "Hoodie + Trousers Set",
+  id: "heavyweight-hoodie",
+  name: "Heavyweight Hoodie",
   price: 98,
   description:
-    "Complete your look with our premium hoodie and matching trousers set. Heavyweight cotton fleece hoodie paired with versatile stretch trousers for everyday comfort.",
+    "Our signature heavyweight hoodie — 400GSM cotton fleece cut for a relaxed, everyday fit. Available in every colorway across our current drops.",
   highlights: [
-    "Hoodie: 100% cotton fleece, 400gsm heavyweight",
-    "Trousers: Slim fit, stretch comfort fabric",
+    "100% cotton fleece, 400gsm heavyweight",
     "Relaxed unisex fit",
     "Brushed interior for softness",
     "Ribbed cuffs and hem",
@@ -273,16 +272,10 @@ export const fabrics = [
 
 export function getVariantById(variantId) {
   const hoodie = product.variants.find((v) => v.id === variantId);
-  if (hoodie) return { ...hoodie, productType: "hoodie" };
-  const trouser = trousers.variants.find((v) => v.id === variantId);
-  if (trouser) return { ...trouser, productType: "trousers" };
-  return null;
+  return hoodie ? { ...hoodie, productType: "hoodie" } : null;
 }
 
 export function getVariantImages(variant) {
-  if (variant.productType === "trousers") {
-    return getTrouserImages(variant);
-  }
   return variant.images && variant.images.length > 0 ? variant.images : [product.image];
 }
 
@@ -291,10 +284,8 @@ export function getVariantPrimaryImage(variant) {
 }
 
 export function getVariantDisplayName(variant) {
-  if (variant.productType === "trousers") {
-    return `${variant.name} Trousers`;
-  }
-  return `${variant.name} - Drop 001`;
+  const collectionName = collections.find((c) => c.id === variant.collection)?.name;
+  return collectionName ? `${variant.name} — ${collectionName}` : variant.name;
 }
 
 export function getStyleById(id) {
@@ -304,5 +295,3 @@ export function getStyleById(id) {
 export function getFabricById(id) {
   return fabrics.find((f) => f.id === id);
 }
-
-export { trousers, getTrouserById, getTrouserImages, getTrouserPrimaryImage, getTrouserDisplayName };

@@ -1,6 +1,6 @@
 import { product, getVariantById, getVariantPrimaryImage } from "../data/product";
 
-export const VALID_SIZES = ["S", "M", "L", "XL", "XXL"];
+export const VALID_SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
 export const ALLOWED_COUNTRIES = ["US", "CA", "GB", "AU", "IN"];
 const MAX_QUANTITY_PER_LINE = 20;
 

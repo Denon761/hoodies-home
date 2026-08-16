@@ -1,6 +1,9 @@
 import PolicyLayout from "../components/PolicyLayout";
 
-export const metadata = { title: "Shipping Policy | HoodiesHome" };
+export const metadata = {
+  title: "Shipping Policy",
+  description: "Processing times, delivery windows, and shipping details for HoodiesHome orders.",
+};
 
 const SECTIONS = [
   {
@@ -11,7 +14,7 @@ const SECTIONS = [
   {
     icon: "Truck",
     title: "Shipping Time",
-    body: "Standard shipping within the USA takes 2–3 business days after processing. You'll receive a tracking number by email as soon as your order ships.",
+    body: "Standard shipping within the USA takes 5–7 business days after processing due to high order volume. You'll receive a tracking number by email as soon as your order ships.",
   },
   {
     icon: "Gift",
@@ -41,5 +44,5 @@ const SECTIONS = [
 ];
 
 export default function ShippingPolicyPage() {
-  return <PolicyLayout title="Shipping Policy" updated="August 9, 2026" sections={SECTIONS} />;
+  return <PolicyLayout title="Shipping Policy" updated="August 16, 2026" sections={SECTIONS} />;
 }

@@ -1,6 +1,9 @@
 import PolicyLayout from "../components/PolicyLayout";
 
-export const metadata = { title: "Privacy Policy | HoodiesHome" };
+export const metadata = {
+  title: "Privacy Policy",
+  description: "How HoodiesHome collects, uses, and protects your personal information.",
+};
 
 const SECTIONS = [
   {

@@ -19,7 +19,7 @@ import AccordionItem from "./AccordionItem";
 import ProductGallery from "./ProductGallery";
 import SizeGuideModal from "./SizeGuideModal";
 
-const SIZES = ["S", "M", "L", "XL", "XXL"];
+const SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
 
 export default function ProductDetail({ variantId }) {
   const dispatch = useDispatch();
@@ -84,23 +84,43 @@ export default function ProductDetail({ variantId }) {
           </h1>
           <p className="mt-2 text-xl font-bold text-ink">${product.price.toFixed(2)}</p>
 
+          <div className="mt-6">
+            <p className="text-sm font-semibold uppercase tracking-wide text-ink">
+              Color <span className="font-normal normal-case text-zinc-500">— {variant.name}</span>
+            </p>
+            <div className="mt-3 flex items-center gap-1.5">
+              {getVariantsByCollection(variant.collection).map((v) => (
+                <Link
+                  key={v.id}
+                  href={`/product/${v.id}`}
+                  aria-label={v.name}
+                  title={v.name}
+                  className={`h-4 w-8 border transition-colors ${
+                    v.id === variant.id ? "border-2 border-ink" : "border-line hover:border-zinc-400"
+                  }`}
+                  style={{ backgroundColor: v.hex }}
+                />
+              ))}
+            </div>
+          </div>
+
           <button
             type="button"
             onClick={() => setShowSizeGuide(true)}
             className="mt-6 flex w-full items-center justify-between text-sm font-semibold uppercase tracking-wide text-ink"
           >
             Size Guide
-            <span className="text-xs font-normal normal-case text-blue-600">what is my size?</span>
+            <span className="text-xs font-normal normal-case text-blue-600">Select my Size</span>
           </button>
 
           <div ref={sizeSectionRef} className="mt-3">
-            <div className="grid grid-cols-5 border border-line">
+            <div className="grid grid-cols-6 border border-line">
               {SIZES.map((s, i) => (
                 <button
                   key={s}
                   type="button"
                   onClick={() => setSize(s)}
-                  className={`flex h-11 items-center justify-center text-xs font-semibold uppercase transition-colors ${
+                  className={`flex h-11 items-center justify-center text-xs font-bold uppercase transition-colors ${
                     i > 0 ? "border-l border-line" : ""
                   } ${s === size ? "bg-ink text-white" : "text-ink hover:bg-surface"}`}
                 >
@@ -248,7 +268,7 @@ export default function ProductDetail({ variantId }) {
         </div>
 
         <Link
-          href="/#shop"
+          href="/shop"
           className="mt-px flex w-full items-center justify-center bg-ink/10 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-ink backdrop-blur-md transition-colors hover:bg-ink/20"
         >
           See More

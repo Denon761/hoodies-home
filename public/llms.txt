@@ -1,0 +1,19 @@
+# HoodiesHome
+
+> HoodiesHome sells a single heavyweight hoodie — 400GSM cotton fleece, relaxed unisex fit — offered in 12 colorways across three drops (Drop 001, Drop 001.1, and Acide). Price is $98 USD, free shipping within the United States.
+
+## Key facts
+
+- Product: Heavyweight Hoodie, 400GSM 100% cotton fleece, brushed interior, ribbed cuffs and hem, relaxed unisex fit.
+- Sizes: XS, S, M, L, XL, XXL.
+- Price: $98 USD per hoodie, free shipping on all US orders, no minimum spend.
+- Shipping: ships within the United States only; 1–2 business days processing, 5–7 business days delivery.
+- Returns: 7-day guarantee covering refunds, size exchanges, and color/style exchanges.
+- Checkout: secure card payment via Stripe.
+
+## Pages
+
+- [Shop All](https://hoodieshome.com/shop): every colorway across all drops.
+- [Shipping Policy](https://hoodieshome.com/shipping-policy)
+- [Refund Policy](https://hoodieshome.com/refund-policy)
+- [Privacy Policy](https://hoodieshome.com/privacy-policy)
