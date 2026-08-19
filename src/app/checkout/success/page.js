@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Script from "next/script";
 import { CheckCircle2 } from "lucide-react";
 
 export const metadata = {
@@ -10,6 +11,20 @@ export default function CheckoutSuccessPage({ searchParams }) {
 
   return (
     <div className="mx-auto flex w-full max-w-[560px] flex-col items-center px-4 py-24 text-center sm:px-6">
+      {referenceId && (
+        <Script
+          id="google-tag-conversion"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              gtag('event', 'conversion', {
+                'send_to': 'AW-18397400260/CXE_CL-B5eMcEMSZyMRE',
+                'transaction_id': ${JSON.stringify(referenceId)}
+              });
+            `,
+          }}
+        />
+      )}
       <CheckCircle2 className="h-12 w-12 text-success" />
       <h1 className="font-display mt-4 text-xl uppercase text-ink">Order Confirmed</h1>
       <p className="mt-2 text-sm text-zinc-500">
