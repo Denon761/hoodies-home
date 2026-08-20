@@ -7,6 +7,7 @@ import {
   getVariantPrimaryImage,
 } from "./data/product";
 import Reveal from "./components/Reveal";
+import Reviews from "./components/Reviews";
 
 const HERO_STRIP = ["100% Cotton Fleece", "Relaxed Unisex Fit", "Free Shipping", "4 Colors"];
 
@@ -115,6 +116,8 @@ export default function Home() {
           );
         })}
       </section>
+
+      <Reviews index="02" heading="What They're Saying" limit={6} />
 
       <section className="relative flex h-[90vh] min-h-[600px] w-full items-end overflow-hidden bg-ink text-white">
         <picture className="absolute inset-0 block h-full w-full">

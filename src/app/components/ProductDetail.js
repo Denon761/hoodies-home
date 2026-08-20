@@ -18,6 +18,7 @@ import { addToCart } from "../store/cartSlice";
 import AccordionItem from "./AccordionItem";
 import ProductGallery from "./ProductGallery";
 import SizeGuideModal from "./SizeGuideModal";
+import Reviews from "./Reviews";
 
 const SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
 
@@ -88,14 +89,14 @@ export default function ProductDetail({ variantId }) {
             <p className="text-sm font-semibold uppercase tracking-wide text-ink">
               Color <span className="font-normal normal-case text-zinc-500">— {variant.name}</span>
             </p>
-            <div className="mt-3 flex items-center gap-1.5">
+            <div className="mt-3 flex items-center gap-2">
               {getVariantsByCollection(variant.collection).map((v) => (
                 <Link
                   key={v.id}
                   href={`/product/${v.id}`}
                   aria-label={v.name}
                   title={v.name}
-                  className={`h-4 w-8 border transition-colors ${
+                  className={`h-7 w-14 border transition-colors ${
                     v.id === variant.id ? "border-2 border-ink" : "border-line hover:border-zinc-400"
                   }`}
                   style={{ backgroundColor: v.hex }}
@@ -274,6 +275,8 @@ export default function ProductDetail({ variantId }) {
           See More
         </Link>
       </div>
+
+      <Reviews variantId={variant.id} index="02" heading="Customer Reviews" limit={6} />
 
       <div
         className={`fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/80 backdrop-blur-md transition-transform duration-300 ease-out ${

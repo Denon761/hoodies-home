@@ -53,14 +53,17 @@ export const product = {
       name: "Pink",
       hex: "#f0c8d0",
       collection: "001",
-      images: ["/images/products/001/pink-front.png"],
+      images: ["/images/products/001/pink-front.png", "/images/products/001/pink-back.png"],
     },
     {
       id: "yellow-black",
       name: "Yellow Black",
       hex: "#facc15",
       collection: "001-1",
-      images: ["/images/products/001-1/yellow-black.jpeg"],
+      images: [
+        "/images/products/001-1/yellow-black.jpeg",
+        "/images/products/001-1/yellow-black-back.png",
+      ],
     },
     {
       id: "white-black",
@@ -94,7 +97,7 @@ export const product = {
       name: "Navy Acide",
       hex: "#1c2a44",
       collection: "acide",
-      images: ["/images/products/acide/navy-acide.png"],
+      images: ["/images/products/acide/navy-acide.png", "/images/products/acide/navy-back.png"],
     },
     {
       id: "black-acide",
@@ -104,6 +107,7 @@ export const product = {
       images: [
         "/images/products/acide/acide-blcak-front.png",
         "/images/products/acide/acide-black.png",
+        "/images/products/acide/black-back.png",
       ],
     },
     {
@@ -111,22 +115,22 @@ export const product = {
       name: "White Acide",
       hex: "#f2f1ec",
       collection: "acide",
-      images: ["/images/products/acide/white-acide.png"],
+      images: ["/images/products/acide/white-acide.png", "/images/products/acide/white-back.png"],
     },
     {
       id: "brown-acide",
       name: "Brown Acide",
       hex: "#6b4a34",
       collection: "acide",
-      images: ["/images/products/acide/brown-acide.png"],
+      images: ["/images/products/acide/brown-acide.png", "/images/products/acide/brown-back.png"],
     },
   ],
 };
 
 export const collections = [
-  { id: "acide", name: "Acide", description: "Acid-wash finish, limited run." },
   { id: "001", name: "Drop 001", description: "The original heavyweight colorways." },
   { id: "001-1", name: "Drop 001.1", description: "Panelled two-tone designs." },
+  { id: "acide", name: "Acide", description: "Acid-wash finish, limited run." },
 ];
 
 export function getVariantsByCollection(collectionId) {
